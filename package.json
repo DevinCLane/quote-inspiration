@@ -3,12 +3,13 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "dev": "node --watch server.js"
+        "dev": "node --watch --env-file=.env server.js"
     },
     "author": "",
     "license": "ISC",
     "description": "",
     "dependencies": {
-        "express": "^4.21.1"
+        "express": "^4.21.1",
+        "mongodb": "^6.10.0"
     }
 }
