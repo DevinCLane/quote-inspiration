@@ -3,7 +3,7 @@ const app = express();
 const MongoClient = require("mongodb").MongoClient;
 
 const uri = process.env.mongoConnectionString;
-const port = 3000;
+const PORT = 3000;
 
 MongoClient.connect(uri)
     .then((client) => {
@@ -13,6 +13,8 @@ MongoClient.connect(uri)
         app.set("view engine", "ejs");
 
         app.use(express.urlencoded({ extended: true }));
+        app.use(express.static("public"));
+        app.use(express.json());
 
         app.get("/", (req, res) => {
             quotesCollection
@@ -20,7 +22,6 @@ MongoClient.connect(uri)
                 .toArray()
                 .then((results) => {
                     res.render("index.ejs", { quotesCollection: results });
-                    console.log(results);
                 })
                 .catch((error) => console.error(error));
         });
@@ -32,8 +33,12 @@ MongoClient.connect(uri)
                 .catch((error) => console.error(error));
         });
 
+        app.put("/quotes", (req, res) => {
+            console.log(req.body);
+        });
+
         app.listen(3000, () => {
-            console.log(`Server is running on http://localhost:${port}`);
+            console.log(`Server is running on http://localhost:${PORT}`);
         });
     })
     .catch((error) => console.error(error));
