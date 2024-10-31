@@ -3,6 +3,7 @@ const app = express();
 const MongoClient = require("mongodb").MongoClient;
 
 const uri = process.env.mongoConnectionString;
+const port = 3000;
 
 MongoClient.connect(uri)
     .then((client) => {
@@ -17,9 +18,10 @@ MongoClient.connect(uri)
             quotesCollection
                 .find()
                 .toArray()
-                .then((results) =>
-                    res.render("index.ejs", { quotesCollection: results })
-                )
+                .then((results) => {
+                    res.render("index.ejs", { quotesCollection: results });
+                    console.log(results);
+                })
                 .catch((error) => console.error(error));
         });
 
@@ -31,7 +33,7 @@ MongoClient.connect(uri)
         });
 
         app.listen(3000, () => {
-            console.log("listening on port 3000");
+            console.log(`Server is running on http://localhost:${port}`);
         });
     })
     .catch((error) => console.error(error));

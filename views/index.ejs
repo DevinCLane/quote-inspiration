@@ -3,16 +3,25 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Quotes app</title>
+        <title>Quotes Inspiration Application</title>
     </head>
     <body>
-        <h1>quotes</h1>
+        <h1>Quotes Inspiration</h1>
         <form action="/quotes" method="post">
             <input type="text" name="name" id="name" placeholder="name" />
             <input type="text" name="quote" id="quote" placeholder="quote" />
             <button type="submit">Submit</button>
         </form>
 
-        <%= quotesCollection %>
+        <h2>Favorite Quotes</h2>
+
+        <ul class="quotes">
+            <% for (const quote of quotesCollection) { %>
+            <li class="quote">
+                <span><%= quote.name %></span>
+                <span><%= quote.quote %></span>
+            </li>
+            <% } %>
+        </ul>
     </body>
 </html>
