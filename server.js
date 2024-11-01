@@ -34,7 +34,28 @@ MongoClient.connect(uri)
         });
 
         app.put("/quotes", (req, res) => {
-            console.log(req.body);
+            quotesCollection
+                .findOneAndUpdate(
+                    { name: "penguin" },
+                    {
+                        $set: {
+                            name: req.body.name,
+                            quote: req.body.quote,
+                        },
+                    },
+                    { upsert: true }
+                )
+                .then((result) => console.log(result))
+                .catch((error) => console.error(error));
+        });
+
+        app.delete("/quotes", (req, res) => {
+            quotesCollection
+                .deleteOne({ name: req.body.name })
+                .then((result) => {
+                    res.json(`Deleted Darth vader's quote`);
+                })
+                .catch((error) => console.error(error));
         });
 
         app.listen(3000, () => {

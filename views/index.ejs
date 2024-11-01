@@ -18,9 +18,10 @@
         <ul class="quotes">
             <% for (const quote of quotesCollection) { %>
             <li class="quote">
-                <span><%= quote.name %></span>
+                <span><%= quote.name %>:</span>
                 <span><%= quote.quote %></span>
                 <span><button class="edit">Edit</button></span>
+                <span><button class="delete">Delete</button></span>
             </li>
             <% } %>
         </ul>
