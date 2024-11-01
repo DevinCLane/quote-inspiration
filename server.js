@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 const MongoClient = require("mongodb").MongoClient;
 
-const uri = process.env.mongoConnectionString;
+const URI = process.env.mongoConnectionString;
 const PORT = 3000;
 
-MongoClient.connect(uri)
+MongoClient.connect(URI)
     .then((client) => {
         const db = client.db("star-wars-quotes");
         const quotesCollection = db.collection("quotes");
@@ -36,7 +36,7 @@ MongoClient.connect(uri)
         app.put("/quotes", (req, res) => {
             quotesCollection
                 .findOneAndUpdate(
-                    { name: "penguin" },
+                    { name: req.body.name },
                     {
                         $set: {
                             name: req.body.name,

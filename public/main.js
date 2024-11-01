@@ -26,12 +26,17 @@ for (const el of editElements) {
     el.addEventListener("click", editQuote);
 }
 
-function deleteQuote() {
+// i want to delete the item next to the delete button that I press
+// send a delete request, in the body of the delete request, send the name of the item I'd like to delete
+// how can i access the name of the item next to the delete button that I am pressing?
+// it is the first span in the parent li
+
+function deleteQuote(elementName) {
     fetch("/quotes", {
         method: "delete",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            name: "darth vader",
+            name: elementName,
         }),
     })
         .then((res) => {
@@ -41,5 +46,8 @@ function deleteQuote() {
 }
 
 for (const el of deleteElements) {
-    el.addEventListener("click", deleteQuote);
+    const deleteItemName =
+        el.parentElement.parentElement.firstElementChild.textContent;
+
+    el.addEventListener("click", () => deleteQuote(deleteItemName));
 }
