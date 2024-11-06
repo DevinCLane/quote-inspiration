@@ -3,7 +3,8 @@ const app = express();
 const MongoClient = require("mongodb").MongoClient;
 
 const URI = process.env.mongoConnectionString;
-const PORT = 3000;
+const hostname = "0.0.0.0";
+const port = process.env.port || 3000;
 
 MongoClient.connect(URI)
     .then((client) => {
@@ -58,8 +59,8 @@ MongoClient.connect(URI)
                 .catch((error) => console.error(error));
         });
 
-        app.listen(3000, () => {
-            console.log(`Server is running on http://localhost:${PORT}`);
+        app.listen(3000, hostname, () => {
+            console.log(`Server is running on http://${hostname}:${port}`);
         });
     })
     .catch((error) => console.error(error));
