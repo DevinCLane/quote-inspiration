@@ -1,9 +1,10 @@
 {
     "name": "zell-crud",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
-        "dev": "node --watch --env-file=.env server.js"
+        "start": "NODE_ENV=production node server.js",
+        "dev": "NODE_ENV=development node --watch --env-file=.env server.js"
     },
     "author": "",
     "license": "ISC",

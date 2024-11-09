@@ -3,11 +3,13 @@ const app = express();
 const MongoClient = require("mongodb").MongoClient;
 
 const URI = process.env.mongoConnectionString;
-const hostname = "0.0.0.0";
+const hostname =
+    process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
 const port = process.env.port || 3000;
 
 MongoClient.connect(URI)
     .then((client) => {
+        console.log("connected to the mongoDB database successfully ");
         const db = client.db("star-wars-quotes");
         const quotesCollection = db.collection("quotes");
 
@@ -59,7 +61,7 @@ MongoClient.connect(URI)
                 .catch((error) => console.error(error));
         });
 
-        app.listen(3000, hostname, () => {
+        app.listen(port, hostname, () => {
             console.log(`Server is running on http://${hostname}:${port}`);
         });
     })
