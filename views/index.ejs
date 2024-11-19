@@ -4,27 +4,54 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Quotes Inspiration Application</title>
+        <link rel="stylesheet" href="/styles/reset.css" />
+        <link rel="stylesheet" href="/styles/main.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Geist+Mono:wght@100..900&family=Poppins:wght@400;600&family=Roboto&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <body>
-        <h1>Quotes Inspiration</h1>
-        <form action="/quotes" method="post">
-            <input type="text" name="name" id="name" placeholder="name" />
-            <input type="text" name="quote" id="quote" placeholder="quote" />
-            <button type="submit">Submit</button>
-        </form>
+        <div class="wrapper">
+            <header>
+                <h1>Quotes Inspiration</h1>
+            </header>
+            <main>
+                <div class="new-quotes">
+                    <h2 id="new-quotes-title">Add new quotes</h2>
+                    <form action="/quotes" method="post">
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="name"
+                        />
+                        <input
+                            type="text"
+                            name="quote"
+                            id="quote"
+                            placeholder="quote"
+                        />
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
 
-        <h2>Favorite Quotes</h2>
+                <h2>Favorite Quotes</h2>
 
-        <ul class="quotes">
-            <% for (const quote of quotesCollection) { %>
-            <li class="quote">
-                <span><%= quote.name %></span>
-                <span><%= quote.quote %></span>
-                <span><button class="edit">Edit</button></span>
-                <span><button class="delete">Delete</button></span>
-            </li>
-            <% } %>
-        </ul>
+                <ul class="quotes">
+                    <% for (const quote of quotesCollection) { %>
+                    <li class="quote">
+                        <span><%= quote.name %></span>
+                        <span><%= quote.quote %></span>
+                        <span><button class="edit">Edit</button></span>
+                        <span><button class="delete">Delete</button></span>
+                    </li>
+                    <% } %>
+                </ul>
+            </main>
+        </div>
         <script src="/main.js"></script>
     </body>
 </html>

@@ -1,0 +1,38 @@
+body {
+    background-color: oklch(87.455% 0.02261 39.039);
+    color: oklch(1.5298% 0.37214 208.17);
+}
+
+h1,
+h2 {
+    font-family: "Geist Mono", monospace;
+    font-optical-sizing: auto;
+}
+
+a,
+blockquote,
+ul,
+ol,
+p,
+form {
+    font-family: "Roboto", serif;
+    hyphens: auto;
+}
+
+.wrapper {
+    margin: 0 auto;
+    max-width: 768px;
+}
+
+header {
+    text-align: center;
+    margin-block-end: 2rem;
+}
+
+#new-quotes-title {
+    padding-block-end: 1.2rem;
+}
+
+main form {
+    padding-block-end: 0.75rem;
+}
