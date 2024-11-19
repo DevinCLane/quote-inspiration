@@ -1,6 +1,11 @@
+:root {
+    --dark: oklch(87.455% 0.02261 39.039);
+    --light: oklch(1.5298% 0.37214 208.17);
+}
+
 body {
-    background-color: oklch(87.455% 0.02261 39.039);
-    color: oklch(1.5298% 0.37214 208.17);
+    background-color: var(--dark);
+    color: var(var(--light));
 }
 
 h1,
@@ -35,4 +40,19 @@ header {
 
 main form {
     padding-block-end: 0.75rem;
+}
+
+button {
+    margin-left: auto;
+    border-width: 1px;
+    border-style: solid;
+    border-color: currentcolor;
+    border-radius: 5px;
+    background: var(--light);
+    color: var(--dark);
+    padding: 0.4rem 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
 }
