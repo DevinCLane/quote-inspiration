@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Quotes Inspiration Application</title>
+        <title>Quotes Inspiration</title>
         <link rel="stylesheet" href="/styles/reset.css" />
         <link rel="stylesheet" href="/styles/main.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,9 +42,9 @@
 
                 <ul class="quotes">
                     <% for (const quote of quotesCollection) { %>
-                    <li class="quote">
-                        <span><%= quote.name %></span>
-                        <span><%= quote.quote %></span>
+                    <li class="quote" data-id="<%= quote._id %>">
+                        <span class="name-text"><%= quote.name %></span>
+                        <span class="quote-text"><%= quote.quote %></span>
                         <span><button class="edit">Edit</button></span>
                         <span><button class="delete">Delete</button></span>
                     </li>

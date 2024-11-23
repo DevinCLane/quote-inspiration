@@ -1,19 +1,20 @@
 const editElements = document.getElementsByClassName("edit");
 const deleteElements = document.getElementsByClassName("delete");
 
-// to do: update DOM with new quotes
-// i want to edit the quotes
-// create a text field
-// create a done button
-// when you press the done button, send the results as a fetch put request
+// when the edit button is clicked, the editform function is called
+// a form is created where the user can edit the quote,
+//      this takes the place of the span that was previously there
+//      a user can either submit or cancel their edits
+// when the user clicks the submit button, a put request is sent to the server to update the quote
 
-function editQuote() {
+function editQuoteRequest({ id, newName, newQuote }) {
     fetch("/quotes", {
         method: "put",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            name: "darth vader",
-            quote: "i find your lack of faith disturbing",
+            id: id,
+            name: newName,
+            quote: newQuote,
         }),
     })
         .then((res) => {
@@ -22,16 +23,48 @@ function editQuote() {
         .then((data) => window.location.reload(true));
 }
 
-for (const el of editElements) {
-    el.addEventListener("click", editQuote);
+function createEditForm(el) {
+    const quoteLi = el.closest("li");
+    const quoteName = quoteLi.querySelector(".name-text");
+    const quoteText = quoteLi.querySelector(".quote-text");
+    const editButton = quoteLi.querySelector(".edit");
+    const deleteButton = quoteLi.querySelector(".delete");
+
+    // create an input where the spans were with the contents of the name and the quote
+    quoteName.innerHTML = `<input type="text" class="name-edit" value="${quoteName.textContent}" ></input>`;
+    quoteText.innerHTML = `<input type="text" class="quote-edit" value="${quoteText.textContent}"></input>`;
+
+    // replace edit and delete buttons with save and cancel edit buttons
+    editButton.outerHTML = `<button class="save-edit">Save</button>`;
+    deleteButton.outerHTML = `<button class="cancel-edit">Cancel</button>`;
+
+    // when the user clicks save, submit a put request with the contents of the name and the quote
+    // when the user clicks cancel, revert the changes
+    const saveEditButton = quoteLi.querySelector(".save-edit");
+    const cancelEditButton = quoteLi.querySelector(".cancel-edit");
+    saveEditButton.addEventListener("click", () => {
+        const newName = quoteLi.querySelector(".name-edit").value;
+        const newQuote = quoteLi.querySelector(".quote-edit").value;
+        editQuoteRequest({
+            id: quoteLi.id,
+            newName,
+            newQuote,
+        });
+    });
+
+    cancelEditButton.addEventListener("click", () => {
+        quoteName.innerHTML = `<span class="name-text">${quoteName.textContent}</span>`;
+        quoteText.innerHTML = `<span class="quote-text">${quoteText.textContent}</span>`;
+        editButton.outerHTML = `<button class="edit">Edit</button>`;
+        deleteButton.outerHTML = `<button class="delete">Delete</button>`;
+    });
 }
 
-// i want to delete the item next to the delete button that I press
-// send a delete request, in the body of the delete request, send the name of the item I'd like to delete
-// how can i access the name of the item next to the delete button that I am pressing?
-// it is the first span in the parent li
+for (const el of editElements) {
+    el.addEventListener("click", () => createEditForm(el));
+}
 
-function deleteQuote(elementName) {
+function deleteQuoteRequest(elementName) {
     fetch("/quotes", {
         method: "delete",
         headers: { "Content-Type": "application/json" },
@@ -42,6 +75,7 @@ function deleteQuote(elementName) {
         .then((res) => {
             if (res.ok) return res.json();
         })
+        // to do: update the DOM instead of reload
         .then((data) => window.location.reload());
 }
 
@@ -49,5 +83,5 @@ for (const el of deleteElements) {
     const deleteItemName =
         el.parentElement.parentElement.firstElementChild.textContent;
 
-    el.addEventListener("click", () => deleteQuote(deleteItemName));
+    el.addEventListener("click", () => deleteQuoteRequest(deleteItemName));
 }

@@ -56,7 +56,7 @@ MongoClient.connect(URI)
             quotesCollection
                 .deleteOne({ name: req.body.name })
                 .then((result) => {
-                    res.json(`Deleted Darth vader's quote`);
+                    res.json(`Deleted quote`);
                 })
                 .catch((error) => console.error(error));
         });
